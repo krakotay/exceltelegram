@@ -8,18 +8,16 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def send_table(old: list[str], new: list[str], inn: list[str], header: str = 'Замены в тексте') -> str:
+    # Формируем таблицу с использованием текста
     table = f"*{header}:*\n"
-    table += "```markdown\n" 
+    table += "```markdown\n"  # Кодовый блок для выравнивания
     table += "| ИНН | Старая версия | Найденная в базе версия |\n"
     table += "| - |-|- |\n"
 
     for o, n, i in zip(old, new, inn):
-        # Пропускаем, если значение старой и новой версии совпадает
-        if o.lower() == n.lower():
-            continue
         table += f"| {i} | {o} | {n} |\n"
-
     table += "```\n"
+
     return table
 
 DADATA_KEY = os.environ["DADATA_KEY"]
